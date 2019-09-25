@@ -53,6 +53,13 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+# extraInitContainers: Specifies a template string for a initContainer.
+# Usecases include situations when you need some pre-run setup
+extraInitContainers:
+# - name: do-something
+#   image: busybox
+#   command: ['do', 'something']
+
 mariadb:
   ## Switch to either deploy mariaDB as part of the chart, or use an external MariaDB instance :
   ## (external mariadb requires mariadb.db.host and mariadb.db.port to be set)

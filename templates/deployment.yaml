@@ -23,6 +23,10 @@ spec:
         - name: shared-data
           persistentVolumeClaim:
             claimName: {{ .Values.volumeClaim.existingClaim | default (include "matomo.fullname" .) }}
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+        {{- tpl .Values.extraInitContainers . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
