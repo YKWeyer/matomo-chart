@@ -1,4 +1,4 @@
-{{- if not .Values.volumeClaim.existingClaim }}
+{{- if and .Values.volumeClaim.enabled (not .Values.volumeClaim.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:

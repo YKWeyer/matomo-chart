@@ -21,8 +21,12 @@ spec:
     spec:
       volumes:
         - name: shared-data
+          {{- if .Values.volumeClaim.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumeClaim.existingClaim | default (include "matomo.fullname" .) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- if .Values.extraInitContainers }}
       initContainers:
         {{- tpl .Values.extraInitContainers . | nindent 8 }}

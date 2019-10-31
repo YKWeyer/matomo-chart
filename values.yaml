@@ -27,6 +27,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 volumeClaim:
+  enabled: true
   # Reuse existing claim: (if empty, a new PVC will be created)
   existingClaim:
   accessModes:
