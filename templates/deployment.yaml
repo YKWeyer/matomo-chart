@@ -18,6 +18,9 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "matomo.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       volumes:
         - name: shared-data
@@ -27,6 +30,9 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+        {{- if .Values.extraVolumes }}
+        {{- tpl .Values.extraVolumes . | nindent 8 }}
+        {{- end }}
       {{- if .Values.extraInitContainers }}
       initContainers:
         {{- tpl .Values.extraInitContainers . | nindent 8 }}
@@ -90,6 +96,9 @@ spec:
                   key: smtp-password
             {{- end }}
           {{- end }}
+          {{- if .Values.extraEnv }}
+            {{ tpl .Values.extraEnv . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
@@ -111,6 +120,9 @@ spec:
           volumeMounts:
             - mountPath: /bitnami
               name: shared-data
+            {{- if .Values.extraVolumeMounts }}
+            {{ tpl .Values.extraVolumeMounts . | nindent 12 }}
+            {{- end }}
 {{- include "matomo.imagePullSecrets" . | indent 6 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

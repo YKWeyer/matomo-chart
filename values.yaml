@@ -61,6 +61,46 @@ extraInitContainers:
 #   image: busybox
 #   command: ['do', 'something']
 
+##
+# Add additional config and secrets (as key-value yaml)
+#
+# These are not automatically mounted in the container, you have to adapt it to your special case using
+# extraEnv or extraVolumes for example.
+#
+# Helm template syntax will be interpreted.
+##
+extraConfig: {}
+#  custom-config: value-{{ .Release.Name }}
+extraSecrets: {}
+# common.config.ini.php: |
+#   ; <?php exit; ?> DO NOT REMOVE THIS LINE
+#   [General]
+#   {{- if .Values.ingress.enabled }}
+#   {{- range .Values.ingress.hosts }}
+#   trusted_hosts[]={{ . }}
+#   {{- end }}
+#   {{- end }}
+
+
+# Configure additional environment variables for the Matomo containers.
+# Helm template syntax will be interpreted.
+extraEnv: |
+#  - name: MATOMO_WEBSITE_HOST
+#    value: {{ index .Values.ingress.hosts 1 }}
+
+##
+# Add additional volumes and mounts possibilities, for advanced use-cases.
+# Helm template syntax will be interpreted.
+##
+extraVolumes: |
+#   - name: config
+#     configMap:
+#       name: {{ include "matomo.fullname" . }}-external-configmap
+extraVolumeMounts: |
+#   - name: config
+#     mountPath: /etc/cron.daily/01-daily-tasks
+#     subPath: daily-tasks
+
 mariadb:
   ## Switch to either deploy mariaDB as part of the chart, or use an external MariaDB instance :
   ## (external mariadb requires mariadb.db.host and mariadb.db.port to be set)
