@@ -1,0 +1,7 @@
+# Config file for chart-testing
+chart-dirs:
+  - ../
+charts:
+  - matomo
+debug: true
+validate-maintainers: false
