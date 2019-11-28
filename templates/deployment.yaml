@@ -23,13 +23,11 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       volumes:
+        {{- if .Values.volumeClaim.enabled }}
         - name: shared-data
-          {{- if .Values.volumeClaim.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumeClaim.existingClaim | default (include "matomo.fullname" .) }}
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
+        {{- end }}
         {{- if .Values.extraVolumes }}
         {{- tpl .Values.extraVolumes . | nindent 8 }}
         {{- end }}
@@ -118,8 +116,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            {{- if .Values.volumeClaim.enabled }}
             - mountPath: /bitnami
               name: shared-data
+            {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{ tpl .Values.extraVolumeMounts . | nindent 12 }}
             {{- end }}
