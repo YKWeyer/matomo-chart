@@ -102,17 +102,9 @@ spec:
               containerPort: 80
               protocol: TCP
           readinessProbe:
-            initialDelaySeconds: 60
-            failureThreshold: 6
-            periodSeconds: 20
-            httpGet:
-              port: http
-              path: /index.php?module=API&method=API.getHeaderLogoUrl
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
           livenessProbe:
-            initialDelaySeconds: 60
-            httpGet:
-              port: http
-              path: /piwik.php
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

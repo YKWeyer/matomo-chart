@@ -39,6 +39,20 @@ volumeClaim:
 smtp:
   enabled: false
 
+readinessProbe: {}
+#  initialDelaySeconds: 60
+#  failureThreshold: 6
+#  periodSeconds: 20
+#  httpGet:
+#    port: http
+#    path: /index.php?module=API&method=API.getHeaderLogoUrl
+
+livenessProbe: {}
+#  initialDelaySeconds: 60
+#  httpGet:
+#    port: http
+#    path: /piwik.php
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
