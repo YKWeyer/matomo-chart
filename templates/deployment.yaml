@@ -81,6 +81,10 @@ spec:
             - name: SMTP_PORT
               value: {{ .Values.smtp.port | quote }}
             {{- end }}
+            {{- if .Values.smtp.auth }}
+            - name: SMTP_AUTH
+              value: {{ .Values.smtp.auth | quote }}
+            {{- end }}
             {{- if .Values.existingSecret }}
             - name: SMTP_USER
               valueFrom:

@@ -47,6 +47,8 @@ smtp:
   protocol:
   # port: e.g "587"
   port:
+  # auth: "Plain", "Login" or "Crammd5". Will default to "Plain" if empty
+  auth:
   # User and Password can be added in "smtp-user" and "smtp-password" in a secret file (see .Values.existingSecret)
 
 readinessProbe: {}
