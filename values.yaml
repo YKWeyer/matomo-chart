@@ -38,6 +38,16 @@ volumeClaim:
 
 smtp:
   enabled: false
+  ##
+  # Available variables for SMTP configuration :
+  ##
+  # host: e.g "smtp.gmail.com"
+  host:
+  # protocol: "ssl" or "tls"
+  protocol:
+  # port: e.g "587"
+  port:
+  # User and Password can be added in "smtp-user" and "smtp-password" in a secret file (see .Values.existingSecret)
 
 readinessProbe: {}
 #  initialDelaySeconds: 60
