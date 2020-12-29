@@ -1,6 +1,8 @@
 # Config file for chart-testing
 chart-dirs:
   - ../
+chart-repos:
+  - stable=https://charts.helm.sh/stable
 charts:
   - matomo
 debug: true
