@@ -103,7 +103,7 @@ spec:
           {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.containerPort | quote }}
               protocol: TCP
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}

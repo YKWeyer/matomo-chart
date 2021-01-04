@@ -11,6 +11,10 @@ matomoUsername:
 matomoPassword:
 matomoEmail:
 
+# HTTP Port of the container
+# Should be 80 for bitnami/matomo:3.14.1-debian-10-r81 and below, 8080 from bitnami/matomo:3.14-debian-10-r82 on)
+containerPort: 80
+
 service:
   type: ClusterIP
   port: 80
