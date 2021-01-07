@@ -40,9 +40,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: MARIADB_HOST
+            - name: MATOMO_DATABASE_HOST
               value: {{ .Values.mariadb.deployChart | ternary (printf "%s-mariadb" .Release.Name) .Values.mariadb.db.host }}
-            - name: MARIADB_PORT_NUMBER
+            - name: MATOMO_DATABASE_PORT_NUMBER
               value: !!string {{ .Values.mariadb.deployChart | ternary .Values.mariadb.service.port .Values.mariadb.db.port }}
             - name: MATOMO_DATABASE_NAME
               value: {{ .Values.mariadb.db.name }}
